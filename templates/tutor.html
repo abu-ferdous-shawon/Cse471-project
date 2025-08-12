@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/tutor.css">
+    <title>BRACU TUTOR</title>
+</head>
+<body>
+    <nav class="menu__bar">
+        <h1 class="logo"><a href="/tutor">TUTORS</a></h1>
+        <ul>
+            <li><a href="/home1">HOME</a></li>  
+            <li><a href="/course">COURSES</a></li> 
+            <li><a href="/tutor">TUTORS</a></li>  
+            <li><a href="/profile">PROFILE</a></li>  
+            <li><a href="/booking">BOOKING</a></li>   
+                   
+
+            <li><a href="/logout" class="logout-btn">LOGOUT</a></li>
+        </ul>
+    </nav>
+
+    <section class="tutor-section">
+        <h2>Available Tutors</h2>
+        <div class="tutor-list">
+            {% for tutor in tutor %}
+            <div class="tutor-item">
+                <h3>NAME: {{ tutor[0] }} <br> TUTOR ID: {{ tutor[1] }} <br> DEPARTMENT ID: {{ tutor[2] }} <br> CGPA: {{ tutor[3] }} <br> Email: {{ tutor[4] }}<br> PER HOUR CHARGE:{{ tutor[5] }}</h3>
+                <p><strong>Available Slots:</strong> {{ tutor[6] or 'N/A' }} </p>
+                <p><strong>Offered Courses:</strong> {{ tutor[7] or 'N/A' }} </p>
+                
+
+                <form action="/booking/{{ tutor[1] }}" method="POST">
+                    <input type="hidden" name="tutor_id" value="{{ tutor[1] }}">
+                    <input type="hidden" name="tutor_name" value="{{ tutor[0] }}">
+                    <input type="hidden" name="tutor_email" value="{{ tutor[4] }}">
+                    <input type="hidden" name="per_hour_charge" value="{{ tutor[5] }}">
+                    <form action="/book_tutor" method="POST">
+                    <input type="hidden" name="t_id" value="{{ tutor[1] }}">
+                </form>
+                
+                   
+            </div>
+            {% else %}
+            <p>NO TUTOR FOUND.</p>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+</html>

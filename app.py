@@ -223,7 +223,56 @@ def booking():
     return render_template("booking.html", tutors=tutors)
 
 
+@app.route('/course')
+def course():
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
+    query = """
+        SELECT course_code, name from course
+    """
+    cursor.execute(query)
+    course = cursor.fetchall()  
+    cursor.close()
+    conn.close()
+
+    return render_template('course.html', course=course)  
+
+
+
+@app.route('/tutor')
+def tutor():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    query = """
+        SELECT tutor.name, tutor.t_id, tutor.d_id, tutor.cgpa, tutor.email, tutor.per_hour_charge, tutor_free_time.free_time, offers.course_code
+        FROM tutor
+        LEFT JOIN tutor_free_time ON tutor.t_id = tutor_free_time.t_id LEFT JOIN offers ON tutor.t_id=offers.t_id
+    """
+    cursor.execute(query)
+    tutor= cursor.fetchall()  
+    cursor.close()
+    conn.close()
+
+    return render_template('tutor.html', tutor=tutor)
+
+@app.route('/available_tutor/<course_code>', methods=['GET'])
+def available_tutor(course_code):
+    connection = get_db_connection()
+    with connection.cursor() as cursor:
+        query = """
+            SELECT tutor.name, tutor.t_id, tutor.d_id, tutor.cgpa, tutor.email, tutor.per_hour_charge, 
+                   tutor_free_time.free_time, offers.course_code
+            FROM tutor
+            LEFT JOIN tutor_free_time ON tutor.t_id = tutor_free_time.t_id
+            LEFT JOIN offers ON tutor.t_id = offers.t_id
+            WHERE offers.course_code = %s
+        """
+        cursor.execute(query, (course_code,))
+        tutors = cursor.fetchall()
+    connection.close()
+    return render_template('available_tutor.html', course_code=course_code, tutors=tutors)
 
 
 if __name__ == "__main__":
