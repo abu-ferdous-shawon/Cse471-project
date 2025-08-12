@@ -274,6 +274,9 @@ def available_tutor(course_code):
     connection.close()
     return render_template('available_tutor.html', course_code=course_code, tutors=tutors)
 
+@app.route('/dept')
+def dept():
+    return render_template("dept.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
