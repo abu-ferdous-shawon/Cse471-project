@@ -171,6 +171,56 @@ def delete_profile():
         flash(f"Error: {str(e)}", "error")
         return redirect(url_for('profile'))
 
+@app.route('/book_tutor', methods=['POST'])
+def book_tutor():
+    print("book_tutor route accessed!")  
+
+    if 'email' not in session:
+        print("User not logged in")
+        return redirect(url_for('login'))
+
+    s_id = session.get('s_id')
+    t_id = request.form.get('t_id')
+
+    print(f"Student ID: {s_id}, Tutor ID: {t_id}")
+
+    if not s_id or not t_id:
+        print("Missing s_id or t_id")
+        return "Invalid request", 400
+
+    try:
+        connection = get_db_connection()
+        with connection.cursor() as cursor:
+            query = "INSERT INTO book (s_id, t_id) VALUES (%s, %s);"
+            cursor.execute(query, (s_id, t_id))
+            connection.commit()
+            print("Booking inserted into database")
+    except Exception as e:
+        print(f"Database error: {e}")
+        return "Database error", 500
+    finally:
+        connection.close()
+
+    return redirect(url_for('course'))
+
+@app.route("/booking")
+def booking():
+    if 's_id' not in session:
+        return redirect(url_for('login'))
+
+    s_id = session['s_id']
+    connection = get_db_connection()
+    cursor = connection.cursor()
+
+    query = """
+        SELECT tutor.name, tutor.per_hour_charge, tutor.t_id, book.booking_date
+        FROM tutor join book on tutor.t_id = book.t_id join student on book.s_id = student.s_id where book.s_id = %s;
+    """
+    cursor.execute(query,(s_id,))
+    tutors = cursor.fetchall()
+    connection.close()
+
+    return render_template("booking.html", tutors=tutors)
 
 
 
