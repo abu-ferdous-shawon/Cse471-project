@@ -92,7 +92,7 @@ def register():
             
     return render_template("register.html")
 
-
+#a
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
