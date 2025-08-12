@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="static/register.css">
+</head>
+<body>
+    <div class="container">
+        <form class="registration-form" action="/register" method="POST">
+            <h2>Registration Form</h2>
+
+            <div class="form-group">
+                <label for="user">User Type</label>
+                <select id="user" name="user" required onchange="toggleFormFields()">
+                    <option value="Student">Student</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+
+            <div class="form-group" id="department-group">
+                <label for="department">Department</label>
+                <div class="multi-select">
+                    <div class="select-options" id="department">
+                        <div class="select-option" onclick="toggleSelection('CSE')">CSE</div>
+                    </div>
+                    <div id="department-box" class="selected-box"></div>
+                </div>
+                <input type="hidden" id="department-input" name="department">
+            </div>
+
+            <div class="form-group" id="password-group">
+                <label for="password">Create Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a password">
+            </div>
+>
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleSelection(value) {
+            let box = document.getElementById("department-box");
+            let existingTags = box.querySelectorAll('.selected-option');
+
+            let isSelected = Array.from(existingTags).some(tag => tag.textContent === value);
+
+            if (!isSelected) {
+                let optionBox = document.createElement('span');
+                optionBox.classList.add('selected-option');
+                optionBox.textContent = value;
+
+                let deleteBtn = document.createElement('span');
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.textContent = '×';
+                deleteBtn.onclick = () => removeOption(optionBox, value);
+
+                optionBox.appendChild(deleteBtn);
+                box.appendChild(optionBox);
+
+                document.getElementById('department-input').value = value;
+            }
+        }
+
+
+        function removeOption(optionBox, value) {
+            optionBox.remove();
+            document.getElementById('department-input').value = '';
+        }
+
+        function toggleFormFields() {
+            const userType = document.getElementById("user").value;
+            const tutorFields = ['free-slots-group', 'preferred-courses-group', 'payment-group', 'cgpa-group'];
+
+            tutorFields.forEach(field => {
+                document.getElementById(field).style.display = userType === 'Tutor' ? 'block' : 'none';
+            });
+        }
+        
+        window.onload = toggleFormFields;
+    </script>
+</body>
+</html>
