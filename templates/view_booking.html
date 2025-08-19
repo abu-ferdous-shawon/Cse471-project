@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/view_booking.css">
+</head>
+<body>
+    <nav class="menu__bar">
+        <h1 class="logo"><a href="/view_booking">Booking</a></h1>
+        <ul>
+            <li><a href="/tutor_home">HOME</a></li>              
+            <li><a href="/profile">PROFILE</a></li>  
+            <li><a href="/view_booking">BOOKING</a></li>    
+            <li><a href="/logout" class="logout-btn">LOGOUT</a></li>
+        </ul>
+    </nav>
+
+
+    <section class="courses-section">
+        <h2>All Bookings</h2>
+        <div class="course-list">
+            {% for tutor in tutors %}
+            <div class="course-item">
+                <h3>{{ tutor[0] }}</h3>
+                <p>Department : {{ tutor[1] }}</p>
+                <p>Email : {{ tutor[2] }}</p>
+                <p>Booking date: {{ tutor[3] }} </p>
+                <p>Status: {{ tutor[4] }} </p>
+                {%if tutor[4] == "Pending" %}
+                <a href="{{ url_for('accept_booking', id=tutor[5]) }}">
+                    <button class="course-button">Accept</button>
+                </a>
+                {% endif %}
+                {%if tutor[4] == "Accepted" %}
+                <a href="{{ url_for('cancel_booking', id=tutor[5]) }}">
+                    <button class="course-button">Cancel Booking</button>
+                </a>
+                {% endif %}
+            </div>
+            {% else %}

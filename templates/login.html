@@ -14,16 +14,20 @@
         </div>
 
 
+
+
         <form method="POST" action="/login">
             <div class="input-box">
                 <label for="email">Email</label>
                 <input type="text" class="input-field" name="email" id="email" placeholder="Email" autocomplete="off" required>
             </div>
 
+
             <div class="input-box">
                 <label for="password">Password</label>
                 <input type="password" class="input-field" name="password" id="password" placeholder="Password" autocomplete="off" required>
             </div>
+
 
             <div class="forgot">
                 <section>
@@ -35,10 +39,16 @@
                 </section>
             </div>  
 
+
             <div class="input-submit">
                 <button class="submit-btn" type="submit" id="submit"></button>
                 <label for="submit">Sign In</label>
             </div>
+           
+            <div class="input-submit">
+                <a href="/adminlogin" class="admin-btn">Admin Login</a>
+            </div>
+
 
             <div class="sign-up-link">
                 <p>Don't have an account? <a href="/register">Register</a></p>
@@ -47,3 +57,4 @@
     </div>    
 </body>
 </html>
+

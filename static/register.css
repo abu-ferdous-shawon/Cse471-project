@@ -6,19 +6,22 @@ body, h2, label, input, select, button, .multi-select, .select-option {
 }
 
 
+
+
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url('/static/home.jpg'); 
-    background-size: cover; 
-    background-position: contain; 
+    background-image: url('/static/home.jpg');
+    background-size: cover;
+    background-position: contain;
     background-repeat: no-repeat;
-    height: 100vh; 
+    height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
 }
+
 
 .container {
     width: 100%;
@@ -30,6 +33,8 @@ body {
 }
 
 
+
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -39,15 +44,21 @@ h2 {
 }
 
 
+
+
 .registration-form {
     display: flex;
     flex-direction: column;
 }
 
 
+
+
 .form-group {
     margin-bottom: 20px;
 }
+
+
 
 
 label {
@@ -57,6 +68,8 @@ label {
     margin-bottom: 8px;
     display: block;
 }
+
+
 
 
 input, select {
@@ -70,9 +83,12 @@ input, select {
     transition: border-color 0.3s;
 }
 
+
 input:focus, select:focus {
     border-color: #007bff;
 }
+
+
 
 
 button {
@@ -87,9 +103,12 @@ button {
     transition: background-color 0.3s;
 }
 
+
 button:hover {
     background-color: #0056b3;
 }
+
+
 
 
 .multi-select {
@@ -102,11 +121,13 @@ button:hover {
     background-color: #ffffff;
 }
 
+
 .select-options {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 }
+
 
 .select-option {
     padding: 5px 10px;
@@ -117,9 +138,12 @@ button:hover {
     transition: background-color 0.3s;
 }
 
+
 .select-option:hover {
     background-color: #d6d8db;
 }
+
+
 
 
 .selected-box {
@@ -128,6 +152,7 @@ button:hover {
     flex-wrap: wrap;
     gap: 8px;
 }
+
 
 .selected-option {
     display: flex;
@@ -140,6 +165,7 @@ button:hover {
     font-size: 14px;
 }
 
+
 .delete-btn {
     margin-left: 8px;
     font-weight: bold;
@@ -148,23 +174,30 @@ button:hover {
     transition: color 0.3s;
 }
 
+
 .delete-btn:hover {
     color: #d6d8db;
 }
+
+
 
 
 .multi-select::-webkit-scrollbar {
     width: 8px;
 }
 
+
 .multi-select::-webkit-scrollbar-thumb {
     background-color: #007bff;
     border-radius: 5px;
 }
 
+
 .multi-select::-webkit-scrollbar-track {
     background-color: #f1f1f1;
 }
+
+
 
 
 @media (max-width: 768px) {
@@ -173,11 +206,35 @@ button:hover {
         padding: 15px;
     }
 
+
     h2 {
         font-size: 20px;
     }
+
 
     input, select, button {
         font-size: 14px;
     }
 }
+
+
+.sign-up-link a {
+    color: #000;
+    font-weight: 600;
+}
+
+
+.hidden { display: none; }
+.form-group { margin-bottom: 14px; }
+label { display: block; margin-bottom: 6px; }
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+      width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;
+    }
+    button[type="submit"] { padding: 10px 16px; border: 0; border-radius: 8px; cursor: pointer; }
+.multi-select { border: 1px solid #ddd; padding: 8px; border-radius: 6px; }
+.select-options { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.select-option { padding: 6px 10px; border: 1px solid #ccc; border-radius: 14px; cursor: pointer; user-select: none; }
+.selected-box { display: flex; flex-wrap: wrap; gap: 6px; min-height: 24px; }
+.selected-option { background: #f0f0f0; border: 1px solid #ccc; border-radius: 14px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 6px; }
+.delete-btn { cursor: pointer; font-weight: bold; }
+
